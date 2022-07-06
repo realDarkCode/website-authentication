@@ -11,21 +11,29 @@ const validateRequest = (req, res, next) => {
 
 const registerValidator = [
 	body("username")
+		.trim()
 		.notEmpty()
 		.withMessage("username is required")
 		.not()
 		.custom((val) => /[^A-za-z0-9\s]/g.test(val))
 		.withMessage("Username not use uniq characters"),
 	body("email")
+		.trim()
 		.notEmpty()
 		.withMessage("email is required")
 		.isEmail()
-		.withMessage("must be a valid email address"),
+		.withMessage("must be a valid email address")
+		.normalizeEmail({ all_lowercase: true }),
 	body("password")
+		.trim()
 		.notEmpty()
 		.withMessage("password is required")
 		.isLength({ min: 8 })
-		.withMessage("password must be 8 characters"),
+		.withMessage("password must be 8 characters")
+		.isStrongPassword()
+		.withMessage(
+			"password must contain at least one number, one special character and one uppercase letter"
+		),
 ];
 
 const loginValidator = [

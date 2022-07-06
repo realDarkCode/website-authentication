@@ -4,7 +4,7 @@ const app = require("./app/app");
 const connectDb = require("./database/db");
 const server = http.createServer(app);
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4000;
 const DATABASE_URI = process.env.DATABASE_URI;
 connectDb(DATABASE_URI)
 	.then(() => {
