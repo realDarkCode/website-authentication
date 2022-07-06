@@ -15,4 +15,13 @@ const createUser = async (username, email, password) => {
 	return user.save();
 };
 
-module.exports = { findByProperty, createUser };
+const loginUser = async (email, password) => {
+	// check if user exists with given email
+	let user = await findByProperty("email", email);
+	if (!user) throw error("Invalid credential", 400);
+	// check if the password matches
+	if (user.password !== password) throw error("Invalid credential", 400);
+	// return user data
+	return user;
+};
+module.exports = { findByProperty, createUser, loginUser };
