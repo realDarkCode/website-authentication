@@ -4,13 +4,23 @@ const authController = require("../controllers/authController");
 
 router.get("/register", (req, res, _next) => {
 	res.format({
-		html: () => res.render("register", { isLogin: false }),
+		html: () =>
+			res.render("register", {
+				isLogin: false,
+				error: "",
+				message: "",
+			}),
 		json: () => res.status(200).json({ message: "Register Get route" }),
 	});
 });
 router.get("/login", (req, res, _next) => {
 	res.format({
-		html: () => res.render("login", { isLogin: false }),
+		html: () =>
+			res.render("login", {
+				isLogin: false,
+				error: "",
+				message: "",
+			}),
 		json: () => res.status(200).json({ message: "Login Get route" }),
 	});
 });

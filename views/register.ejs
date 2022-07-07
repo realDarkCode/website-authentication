@@ -13,7 +13,11 @@
 					<div class="card" style="border-radius: 15px">
 						<div class="card-body p-5">
 							<h2 class="text-uppercase text-center mb-5">Create an account</h2>
-
+							<% if(error){ %>
+							<div class="alert alert-danger" role="alert"><%=error%></div>
+							<% } %> <% if(message){ %>
+							<div class="alert alert-info" role="alert"><%=message%></div>
+							<% } %>
 							<form method="post" action="/register" class="needs-validation">
 								<div class="form-outline mb-4">
 									<label class="form-label" for="username"
