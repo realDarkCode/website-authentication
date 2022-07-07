@@ -14,7 +14,9 @@ router.get("/login", (req, res, _next) => {
 		json: () => res.status(200).json({ message: "Login Get route" }),
 	});
 });
-
+router.get("/logout", (req, res, next) => {
+	res.redirect("/");
+});
 router.post(
 	"/register",
 	authValidation.registerValidator,
