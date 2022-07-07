@@ -7,7 +7,7 @@ module.exports = {
 			.withMessage("username is required")
 			.not()
 			.custom((val) => /[^A-za-z0-9\s]/g.test(val))
-			.withMessage("Username not use uniq characters");
+			.withMessage("Username can only use numbers and characters");
 	},
 	email() {
 		return body("email")
