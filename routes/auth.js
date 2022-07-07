@@ -6,7 +6,7 @@ router.get("/register", (req, res, _next) => {
 	res.format({
 		html: () =>
 			res.render("register", {
-				isLogin: false,
+				isLogin: req.user.isLoggedIn,
 				error: "",
 				message: "",
 			}),
@@ -17,7 +17,7 @@ router.get("/login", (req, res, _next) => {
 	res.format({
 		html: () =>
 			res.render("login", {
-				isLogin: false,
+				isLogin: req.user.isLoggedIn,
 				error: "",
 				message: "",
 			}),

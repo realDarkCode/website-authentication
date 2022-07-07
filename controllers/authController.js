@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
 			},
 			html: () => {
 				res.status(200).render("register", {
-					isLogin: false,
+					isLogin: req.user.isLoggedIn,
 					error: "",
 					message: "User registered successfully. Login now",
 				});
@@ -27,7 +27,7 @@ const register = async (req, res, next) => {
 					},
 					html: () =>
 						res.status(err.status).render(`register`, {
-							isLogin: false,
+							isLogin: req.user.isLoggedIn,
 							error: err.message,
 							message: "",
 						}),
@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
 			},
 			html: () => {
 				res.status(200).render("login", {
-					isLogin: true,
+					isLogin: req.user.isLoggedIn,
 					error: "",
 					message: `Welcome back ${user.username}`,
 				});
@@ -65,7 +65,7 @@ const login = async (req, res, next) => {
 					},
 					html: () =>
 						res.status(err.status).render(`login`, {
-							isLogin: false,
+							isLogin: req.user.isLoggedIn,
 							error: err.message,
 							message: "",
 						}),

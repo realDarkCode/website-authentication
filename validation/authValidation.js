@@ -10,7 +10,7 @@ const validateRequest = (req, res, next) => {
 			json: () => res.status(422).json({ error: errors.array()[0].msg }),
 			html: () =>
 				res.status(422).render(`${page}`, {
-					isLogin: false,
+					isLogin: req.user.isLoggedIn,
 					error: errors.array()[0].msg,
 					message: "",
 				}),

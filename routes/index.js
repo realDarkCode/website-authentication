@@ -1,12 +1,12 @@
 const router = require("express").Router();
 const authRoutes = require("./auth");
-const dashboardRoutes = require("./dashboard");
-router.use("/", authRoutes);
-router.use("/", dashboardRoutes);
-router.get("/", (req, res) => {
-	res.format({
-		html: () => res.render("index", { isLogin: false }),
-		json: () => res.json({ message: "Welcome to Website-authentication API!" }),
+const isLoggedInMiddleware = require("../middlewares/isLoggedIn");
+router.use("/", isLoggedInMiddleware, authRoutes);
+router.get("/", isLoggedInMiddleware, (req, res) => {
+	res.render("index", {
+		isLogin: req.user.isLoggedIn,
+		error: "",
+		message: "",
 	});
 });
 module.exports = router;
