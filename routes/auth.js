@@ -1,6 +1,20 @@
 const router = require("express").Router();
 const authValidation = require("../validation/authValidation");
 const authController = require("../controllers/authController");
+
+router.get("/register", (req, res, _next) => {
+	res.format({
+		html: () => res.render("register", { isLogin: false }),
+		json: () => res.status(200).json({ message: "Register Get route" }),
+	});
+});
+router.get("/login", (req, res, _next) => {
+	res.format({
+		html: () => res.render("login", { isLogin: false }),
+		json: () => res.status(200).json({ message: "Login Get route" }),
+	});
+});
+
 router.post(
 	"/register",
 	authValidation.registerValidator,
