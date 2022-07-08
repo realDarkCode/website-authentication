@@ -26,6 +26,9 @@ const createUser = async (username, email, password) => {
 	}
 };
 
+const matchPassword = (password, user) => {
+	return bcrypt.compare(password, user.password);
+};
 const loginUser = async (email, password) => {
 	// check if user exists with given email
 	let user = await findByProperty("email", email);
@@ -36,4 +39,4 @@ const loginUser = async (email, password) => {
 	// return user data
 	return user;
 };
-module.exports = { findByProperty, createUser, loginUser };
+module.exports = { findByProperty, createUser, loginUser, matchPassword };
