@@ -1,32 +1,39 @@
+const User = require("../models/User");
 const passport = require("passport");
+const bcrypt = require("bcrypt");
 const LocalStrategy = require("passport-local").Strategy;
-const UserService = require("../services/user");
-passport.use(
-	new LocalStrategy(async (email, password, done) => {
-		try {
-			let user = await UserService.findByProperty("email", email);
-			if (!user) return done(null, false, { message: "Invalid credential" });
-			if (!(await UserService.matchPassword(password, user)))
-				return done(null, false, { message: "Invalid credential" });
 
+passport.use(
+	new LocalStrategy(async (username, password, done) => {
+		try {
+			const user = await User.findOne({ username: username });
+			if (!user) {
+				return done(null, false, { message: "Incorrect Username" });
+			}
+			if (!bcrypt.compare(password, user.password)) {
+				return done(null, false, { message: "Incorrect password" });
+			}
 			return done(null, user);
 		} catch (error) {
-			return done(error);
+			return done(err);
 		}
 	})
 );
+
 // create session id
-// whenever we login it creates user id inside  sessions
+// whenever we login it creares user id inside session
 passport.serializeUser((user, done) => {
-	done(null, user._id);
+	done(null, user.id);
 });
 
 // find session info using session id
 passport.deserializeUser(async (id, done) => {
 	try {
-		let user = await UserService.findByProperty("_id", id);
+		const user = await User.findById(id);
 		done(null, user);
 	} catch (error) {
-		done(error);
+		done(error, false);
 	}
 });
+
+module.exports = passport;

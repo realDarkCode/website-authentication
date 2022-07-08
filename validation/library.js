@@ -15,8 +15,7 @@ module.exports = {
 			.notEmpty()
 			.withMessage("email is required")
 			.isEmail()
-			.withMessage("must be a valid email address")
-			.normalizeEmail({ all_lowercase: true });
+			.withMessage("must be a valid email address");
 	},
 	password() {
 		return body("password")

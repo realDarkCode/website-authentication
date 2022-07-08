@@ -5,6 +5,7 @@ const error = require("../utils/error");
 const saltRounds = 10;
 
 const findByProperty = (property, value) => {
+	console.log("finding user by property");
 	if (property == "_id") {
 		return User.findById(value);
 	}
@@ -27,6 +28,7 @@ const createUser = async (username, email, password) => {
 };
 
 const matchPassword = (password, user) => {
+	console.log("matching password");
 	return bcrypt.compare(password, user.password);
 };
 const loginUser = async (email, password) => {

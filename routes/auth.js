@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const passport = require("../middlewares/passport");
 const authValidation = require("../validation/authValidation");
 const authController = require("../controllers/authController");
 
@@ -35,8 +36,9 @@ router.post(
 );
 router.post(
 	"/login",
-	authValidation.loginValidator,
-	authValidation.validateRequest,
-	authController.login
+	passport.authenticate("local", {
+		failureRedirect: "/login",
+		successRedirect: "/profile",
+	})
 );
 module.exports = router;
